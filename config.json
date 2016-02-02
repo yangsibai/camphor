@@ -1,0 +1,4 @@
+{
+    "addr": ":9021",
+    "mongo": "mongodb://localhost:27017"
+}
