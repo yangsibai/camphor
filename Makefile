@@ -11,4 +11,7 @@ copy_bower_packages:
 	@-mkdir public/js
 	@cp ./bower_components/jquery/dist/jquery.min.js public/js/
 
+live:
+    git push live master
+
 .PHONY: test compile_css
