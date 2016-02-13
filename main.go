@@ -15,12 +15,17 @@ var ren *render.Render
 func main() {
 	router := httprouter.New()
 	router.GET("/", Index)
-	router.GET("/posts", AllPosts)
+	//router.GET("/posts", AllPosts)
+	//router.POST("/posts", AllPosts)
 	router.GET("/post", AddPostPage)
 	router.POST("/post", AddPost)
-	router.POST("/posts", AllPosts)
-	log.Println("camphor run at ", config.Addr)
-	log.Fatal(http.ListenAndServe(config.Addr, router))
+	router.ServeFiles("/public/*filepath", http.Dir("public"))
+
+	log.Println("camphor listening at", config.Addr)
+	err := http.ListenAndServe(config.Addr, router)
+	if err != nil {
+		panic(err)
+	}
 }
 
 func readConfig() (error, Configuration) {
@@ -43,5 +48,6 @@ func init() {
 	}
 	ren = render.New(render.Options{
 		Directory: "tmpls",
+		Layout:    "layout",
 	})
 }

@@ -1,15 +1,10 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width">
-        <title>{{.}}</title>
-    </head>
-    <body>
-        <nav>
-            <p>Welcome to <a href="/">Camphor</a></p>
-            <p><a href="/posts">Posts</a></p>
-            <p><a href="/post">Add new post</a></p>
-        </nav>
-    </body>
-</html>
+<div class="home">
+    <div class="posts">
+        {{ range . }}
+        <div class="post">
+            <div class="label"><span class="time">{{.CreatedAt.Format "2006-01-02 15:05" }}</span></div>
+            <div class="body">{{.Body}}</div>
+        </div>
+        {{ end }}
+    </div>
+</div>

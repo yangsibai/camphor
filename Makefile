@@ -1,7 +1,14 @@
-run:
+run: compile_css copy_bower_packages
 	go run *.go
 
 test:
 	curl -X POST -d "{\"body\":\"test body\"}" http://localhost:9021/post
 
-.PHONY: test
+compile_css:
+	@lessc css/style.less public/style.css
+
+copy_bower_packages:
+	@-mkdir public/js
+	@cp ./bower_components/jquery/dist/jquery.min.js public/js/
+
+.PHONY: test compile_css

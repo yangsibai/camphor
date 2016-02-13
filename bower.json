@@ -1,0 +1,22 @@
+{
+  "name": "camphor",
+  "homepage": "https://github.com/yangsibai/camphor",
+  "authors": [
+    "Yangsibai <yangsibai@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.2.0"
+  }
+}

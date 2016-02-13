@@ -1,25 +1,32 @@
+<div class="add_post">
+    <form method="post" action="/post">
+        <div>
+            <textarea required rows="10" cols="50" name="body"></textarea>
+        </div>
+        <div class="resources">
+            <div class="resource">
+                <input type="file" accept="image/*,video/*,audio/*"/>
+            </div>
+            <div class="resource">
+                <input type="file" accept="image/*,video/*,audio/*"/>
+            </div>
+            <div class="resource">
+                <input type="file" accept="image/*,video/*,audio/*"/>
+            </div>
+        </div>
+        <div class="btns">
+            <button class="submit" type="submit">Submit</button>
+        </div>
+    </form>
+</div>
 
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width">
-        <title>Add Post</title>
-    </head>
-    <body>
-        <nav>
-            <p>Welcome to <a href="/">Camphor</a></p>
-            <p><a href="/posts">Posts</a></p>
-            <p><a href="/post">Add new post</a></p>
-        </nav>
-        <h2>Add Post</h2>
-        <form method="post" action="/post">
-            <div>
-                <textarea rows="10" cols="50" name="body"></textarea>
-            </div>
-            <div>
-                <button type="submit">Submit</button>
-            </div>
-        </form>
-    </body>
-</html>
+{{ define "scripts-add_post" }}
+<script src="/public/js/jquery.min.js"></script>
+<script>
+    $(function () {
+        $('input[type=file]').change(function () {
+            console.log('file change');
+        });
+    });
+</script>
+{{ end }}

@@ -29,6 +29,6 @@ func getAllPosts() (posts []Post, err error) {
 	defer session.Close()
 
 	C := session.DB("camphor").C("post")
-	err = C.Find(nil).All(&posts)
+	err = C.Find(nil).Sort("-created_at").All(&posts)
 	return
 }
