@@ -1,4 +1,6 @@
 .camphor
 .DS_Store
-public/style.css
-/bower_components/
+bower_components/
+public/
+public/
+node_modules/
