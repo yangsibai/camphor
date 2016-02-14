@@ -34,3 +34,11 @@ func GetAllPosts() (posts []models.Post, err error) {
 	err = C.Find(nil).Sort("-created_at").All(&posts)
 	return
 }
+
+func StoreResource(resource *models.Resource) error {
+	session := getSession()
+	defer session.Close()
+
+	C := session.DB("camphor").C("resource")
+	return C.Insert(&resource)
+}

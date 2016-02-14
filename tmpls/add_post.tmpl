@@ -1,5 +1,5 @@
 <div class="add_post">
-    <form method="post" action="/post">
+    <form method="post" action="/post" enctype="multipart/form-data">
         <div>
             <textarea required rows="10" cols="50" name="body"></textarea>
         </div>
@@ -24,7 +24,7 @@
 <script src="/public/lib/jquery.js"></script>
 <script>
     $(function () {
-        $('input[type=file]').change(function () {
+        $('input[type=file]').change(function (e) {
             console.log('file change');
         });
     });

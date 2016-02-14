@@ -1,4 +1,6 @@
 {
     "addr": ":9021",
-    "mongo": "mongodb://localhost:27017"
+    "mongo": "mongodb://localhost:27017",
+    "saveDir": "/Users/massimo/www/static/",
+    "baseURL": "http://192.168.1.88:9999/"
 }
