@@ -8,9 +8,7 @@
     </head>
     <body>
         <h1 class="welcome"><a href="/"><img src="/public/logo/48.png" width="20" height="20"/></a>Welcome to Camphor</h1>
-        <nav>
-            <a href="/post">New post</a>
-        </nav>
+        {{ partial "nav" }}
         {{ yield }}
         {{ partial "footer" }}
         <script src="public/js/lib.js"></script>
