@@ -132,6 +132,7 @@ func HandlePost(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 }
 
 func AddPost(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+
 	//for _, fheaders := range r.MultipartForm.File {
 	//for _, hdr := range fheaders {
 	//if infile, err := hdr.Open(); err != nil {
