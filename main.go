@@ -12,7 +12,7 @@ func main() {
 	router := httprouter.New()
 	router.GET("/", routes.Index)
 	router.GET("/post", routes.AddPostPage)
-	router.POST("/post", routes.AddPost)
+	router.POST("/post", routes.HandlePost)
 
 	router.ServeFiles("/public/*filepath", http.Dir("public"))
 

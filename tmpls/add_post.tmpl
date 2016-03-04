@@ -1,11 +1,12 @@
 <div class="add_post">
-    <form method="post" action="/post" enctype="multipart/form-data">
+    <div method="post" action="/post" enctype="multipart/form-data">
         <div>
-            <textarea required rows="10" cols="50" name="body"></textarea>
+            <textarea id="content" required rows="10" cols="50" name="body"></textarea>
         </div>
+        <!--
         <div class="resources">
             <div class="resource">
-                <input type="file" accept="image/*,video/*,audio/*"/>
+                <input name="resource" type="file" accept="image/*,video/*,audio/*"/>
             </div>
             <div class="resource">
                 <input type="file" accept="image/*,video/*,audio/*"/>
@@ -14,19 +15,37 @@
                 <input type="file" accept="image/*,video/*,audio/*"/>
             </div>
         </div>
+        -->
         <div class="btns">
-            <button class="submit" type="submit">Submit</button>
+            <button class="submit" id="submit">Submit</button>
         </div>
-    </form>
+    </div>
 </div>
 
 {{ define "scripts-add_post" }}
-<script src="/public/lib/jquery.js"></script>
 <script>
-    $(function () {
-        $('input[type=file]').change(function (e) {
-            console.log('file change');
+    var submitBtn = document.getElementById('submit');
+    var contentInput = document.getElementById('content');
+    var content;
+    var onSubmit = function () {
+        content = contentInput.value.trim();
+        if (!content) {
+            alert('must have content and cannot be blank');
+            return;
+        }
+        submitBtn.disabled = true;
+        ajax.post('/post', {
+            content: content
+        }, function (res){
+            var o = JSON.parse(res);
+            if (o.code === 0) {
+                window.location.href = "/";
+                return;
+            }
+            submitBtn.disabled = false;
+            alert(o.error);
         });
-    });
+    };
+    submitBtn.onclick = onSubmit;
 </script>
 {{ end }}

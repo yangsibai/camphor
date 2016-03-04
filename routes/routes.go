@@ -114,40 +114,76 @@ func handleSaveSingleResource(part *multipart.Part) (info models.Resource, err e
 	return info, nil
 }
 
-func AddPost(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
-	reader, err := r.MultipartReader()
-	if err != nil {
-		utils.WriteErrorResponse(w, err)
-		return
-	}
-
-	var resources []models.Resource
-
-	for {
-		part, err := reader.NextPart()
-		if err == io.EOF {
-			break
-		}
-		if part.FileName() == "" {
-			continue
-		}
-		resource, err := handleSaveSingleResource(part)
-		resources = append(resources, resource)
-	}
+func HandlePost(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+	content := r.PostFormValue("content")
 
 	post := models.Post{
 		ID:        bson.NewObjectId(),
-		Body:      r.FormValue("body"),
+		Body:      content,
 		CreatedAt: time.Now(),
-		Resources: resources,
 	}
 
-	err = db.StorePost(&post)
+	err := db.StorePost(&post)
 	if err != nil {
 		utils.WriteErrorResponse(w, err)
 		return
 	}
-	ren.Text(w, http.StatusOK, "ok")
+	utils.WriteResponse(w, content)
+}
+
+func AddPost(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+
+	const _24K = (1 << 20) * 24
+	if err := r.ParseMultipartForm(_24K); err != nil {
+		utils.WriteErrorResponse(w, err)
+		return
+	}
+
+	fmt.Println(r.PostFormValue("body"))
+
+	//for _, fheaders := range r.MultipartForm.File {
+	//for _, hdr := range fheaders {
+	//if infile, err := hdr.Open(); err != nil {
+	//utils.WriteErrorResponse(w, err)
+	//return
+	//}
+	//}
+	//}
+
+	//reader, err := r.MultipartReader()
+	//if err != nil {
+	//utils.WriteErrorResponse(w, err)
+	//return
+	//}
+
+	//var resources []models.Resource
+
+	//for {
+	//part, err := reader.NextPart()
+	//if err == io.EOF {
+	//break
+	//}
+	//if part.FileName() == "" {
+	//continue
+	//}
+	//resource, err := handleSaveSingleResource(part)
+	//resources = append(resources, resource)
+	//}
+
+	//fmt.Println(r.FormValue("body"))
+	//post := models.Post{
+	//ID:        bson.NewObjectId(),
+	//Body:      r.FormValue("body"),
+	//CreatedAt: time.Now(),
+	//Resources: resources,
+	//}
+
+	//err = db.StorePost(&post)
+	//if err != nil {
+	//utils.WriteErrorResponse(w, err)
+	//return
+	//}
+	ren.Text(w, http.StatusOK, "ok: "+r.PostFormValue("body"))
 }
 
 func init() {
