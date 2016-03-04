@@ -65,9 +65,9 @@ gulp.task('go-run', function() {
 /*
  * Build bower libs, copy main bower files to ./puglic/lib/
  */
-gulp.task('assets:bower', function() {
-    return gulp.src(mainBowerFiles()).pipe(gulp.dest('./public/lib'));
-});
+//gulp.task('assets:bower', function() {
+    //return gulp.src(mainBowerFiles()).pipe(gulp.dest('./public/lib'));
+//});
 
 /*
  * Copy assets files to public
@@ -112,7 +112,7 @@ gulp.task('assets:javascripts', function() {
 gulp.task('assets:build', [
     'assets:stylesheets',
     'assets:javascripts',
-    'assets:bower',
+    //'assets:bower',
     'assets:files'
 ]);
 
@@ -125,9 +125,9 @@ gulp.task('assets:watch', function() {
         'assets/js/**/*.js'
     ], ['assets:javascripts']);
 
-    gulp.watch([
-        'bower.json'
-    ], ['assets:bower']);
+    //gulp.watch([
+        //'bower.json'
+    //], ['assets:bower']);
 
     gulp.watch([
         'assets/files/**/*'
