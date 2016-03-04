@@ -132,15 +132,6 @@ func HandlePost(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 }
 
 func AddPost(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
-
-	const _24K = (1 << 20) * 24
-	if err := r.ParseMultipartForm(_24K); err != nil {
-		utils.WriteErrorResponse(w, err)
-		return
-	}
-
-	fmt.Println(r.PostFormValue("body"))
-
 	//for _, fheaders := range r.MultipartForm.File {
 	//for _, hdr := range fheaders {
 	//if infile, err := hdr.Open(); err != nil {
