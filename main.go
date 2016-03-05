@@ -17,7 +17,6 @@ func main() {
 	router.ServeFiles("/public/*filepath", http.Dir("public"))
 
 	log.Println("camphor listening at", utils.Config.Addr)
-
 	err := http.ListenAndServe(utils.Config.Addr, router)
 	if err != nil {
 		panic(err)
