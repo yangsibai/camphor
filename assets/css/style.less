@@ -1,3 +1,7 @@
+@color-blue: #25a6d9;
+@color-link: #333;
+@color-label: #aaa;
+
 html, body {
     font-family: "Microsoft Yahei", Arial,"Helvetica Neue",Helvetica,"Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Verdana,sans-serif;
     background: #FFF;
@@ -12,6 +16,9 @@ pre, code {
 }
 
 nav {
+    .add-post {
+        color: @color-link;
+    }
 }
 
 .welcome {
@@ -31,8 +38,10 @@ nav {
             }
             .label {
                 font-size: 12px;
+                color: @color-label;
             }
             .body {
+                font-size: 14px;
             }
         }
     }
@@ -67,7 +76,7 @@ nav {
                 width: 100px;
                 height: 40px;
                 outline: none;
-                background-color: #25a6d9;
+                background-color: @color-blue;
                 font-family: 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif;
                 border: none;
                 border-radius: 3px;

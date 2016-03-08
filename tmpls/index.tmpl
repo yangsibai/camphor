@@ -1,6 +1,6 @@
 {{ define "nav-index"}}
     <nav>
-        <a href="/post">New post</a>
+        <a class="add-post" href="/post">post</a>
     </nav>
 {{ end }}
 
@@ -8,7 +8,7 @@
     <div class="posts">
         {{ range . }}
         <div class="post">
-            <div class="label"><span class="time">{{.CreatedAt.Format "2006-01-02 15:05" }}</span></div>
+            <div class="label"><span class="time">{{.CreatedAt.Format "01-02 15:05" }}</span></div>
             <div class="body">{{.Body}}</div>
         </div>
         {{ end }}
