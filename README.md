@@ -1,6 +1,8 @@
-## Camphor <http://camphor.sibo.io>
+## Camphor
 
 A place where there is no follows, no comments, no likes, just for myself.
+
+<http://camphor.sibo.io>
 
 ### LICENSE
 
