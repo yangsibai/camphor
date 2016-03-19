@@ -10,6 +10,11 @@
         <div class="post">
             <div class="label"><span class="time">{{.CreatedAt.Format "01-02 15:05" }}</span></div>
             <div class="body">{{.Body}}</div>
+            <ul class="resources">
+            {{ range .Resources }}
+                <li><img width="{{.Width}}" height="{{.Height}}" src="{{.URL}}" /></li>
+            {{ end }}
+            </ul>
         </div>
         {{ end }}
     </div>

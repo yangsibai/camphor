@@ -3,19 +3,19 @@
         <div>
             <textarea id="content" required autofocus></textarea>
         </div>
-        <!--
         <div class="resources">
             <div class="resource">
-                <input name="resource" type="file" accept="image/*,video/*,audio/*"/>
+                <input id="resource" name="resource" type="file" accept="image/*,video/*,audio/*"/>
             </div>
+            <!--
             <div class="resource">
                 <input type="file" accept="image/*,video/*,audio/*"/>
             </div>
             <div class="resource">
                 <input type="file" accept="image/*,video/*,audio/*"/>
             </div>
+            -->
         </div>
-        -->
         <div class="btns">
             <button class="submit" id="submit">Submit</button>
         </div>
@@ -34,18 +34,55 @@
             return;
         }
         submitBtn.disabled = true;
-        ajax.post('/post', {
-            content: content
-        }, function (res){
-            var o = JSON.parse(res);
-            if (o.code === 0) {
-                window.location.href = "/";
+        uploadResource(function (err, res) {
+            if (err) {
+                alert(err);
                 return;
             }
-            submitBtn.disabled = false;
-            alert(o.error);
+            var postObj = {
+                body: content,
+            };
+            if (res) {
+                postObj.resources = [res];
+            }
+                console.dir(postObj);
+                ajax.post('/post', {
+                data: JSON.stringify(postObj)
+            }, function (res){
+                var o = JSON.parse(res);
+                return;
+                if (o.code === 0) {
+                    window.location.href = "/";
+                    return;
+                }
+                submitBtn.disabled = false;
+                alert(o.error);
+            });
         });
     };
     submitBtn.onclick = onSubmit;
+
+    function uploadResource(cb) {
+        if (!file) {
+            cb(null, null);
+        } else {
+            ajax.upload('http://panda.sibo.io/upload/img', file, function (err, res) {
+                if(err) {
+                    return cb(err);
+                }
+                var res = JSON.parse(res);
+                if (res.code === 0) {
+                     return cb(null, res.payload);
+                }
+                cb(new Error(res.error))
+            });
+        }
+    };
+
+    var resource = document.getElementById('resource');
+    var file = null;
+    resource.addEventListener('change', function (e) {
+        file = e.target.files[0];
+    });
 </script>
 {{ end }}

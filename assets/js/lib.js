@@ -35,7 +35,7 @@ ajax.send = function (url, callback, method, data, async) {
         }
     };
     if (method == 'POST') {
-        x.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        x.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     }
     x.send(data)
 };
@@ -54,5 +54,17 @@ ajax.post = function (url, data, callback, async) {
         query.push(encodeURIComponent(key) + '=' + encodeURIComponent(data[key]));
     }
     ajax.send(url, callback, 'POST', query.join('&'), async)
+};
+ajax.upload = function (url, file, callback) {
+    var x = ajax.x();
+    x.open('POST', url, true);
+    x.onreadystatechange = function () {
+        if (x.readyState == 4) {
+            callback(null, x.responseText)
+        }
+    };
+	var formData = new FormData();
+	formData.append("file", file);
+    x.send(formData);
 };
 window.ajax = ajax;
