@@ -2,5 +2,4 @@ camphor
 .DS_Store
 bower_components/
 public/
-public/
 node_modules/
