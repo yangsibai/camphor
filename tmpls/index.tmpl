@@ -1,20 +1,22 @@
 {{ define "nav-index"}}
-    <nav>
-        <a class="add-post" href="/post">post</a>
-    </nav>
+    {{ if .IsLogin }}
+        <nav>
+            <a class="add-post" href="/post">post</a>
+        </nav>
+    {{ end }}
 {{ end }}
 
 <div class="home">
     <div class="posts">
-        {{ range . }}
+        {{ range .Posts }}
         <div class="post">
-            <div class="label"><span class="time">{{.CreatedAt.Format "01-02 15:05" }}</span></div>
             <div class="body">{{.Body}}</div>
             <ul class="resources">
             {{ range .Resources }}
                 <li><img width="{{.Width}}" height="{{.Height}}" src="{{.URL}}" /></li>
             {{ end }}
             </ul>
+            <div class="label"><span class="time">{{.CreatedAt.Format "01-02 15:05" }}</span></div>
         </div>
         {{ end }}
     </div>

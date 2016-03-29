@@ -2,7 +2,6 @@ package routes
 
 import (
 	"encoding/json"
-	"fmt"
 	"github.com/camphor/db"
 	"github.com/camphor/models"
 	"github.com/camphor/utils"
@@ -15,17 +14,48 @@ import (
 
 var ren *render.Render
 
+func init() {
+	ren = render.New(render.Options{
+		Directory: "tmpls",
+		Layout:    "layout",
+	})
+}
+
+func responseError(w http.ResponseWriter, err error) {
+	http.Error(w, err.Error(), http.StatusInternalServerError)
+}
+
 func Index(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	posts, err := db.GetAllPosts()
 	if err != nil {
-		fmt.Fprint(w, err.Error())
+		responseError(w, err)
 		return
 	}
-	ren.HTML(w, http.StatusOK, "index", posts)
+	isLogin, err := utils.IsLogin(r)
+	if err != nil {
+		responseError(w, err)
+		return
+	}
+	ren.HTML(w, http.StatusOK, "index", struct {
+		Posts   []models.Post
+		IsLogin bool
+	}{
+		posts,
+		isLogin,
+	})
 }
 
 func AddPostPage(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
-	ren.HTML(w, http.StatusOK, "add_post", nil)
+	authed, err := utils.IsLogin(r)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	if authed == true {
+		ren.HTML(w, http.StatusOK, "add_post", nil)
+		return
+	}
+	http.Redirect(w, r, "/login", http.StatusSeeOther)
 }
 
 func HandlePost(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
@@ -57,9 +87,19 @@ func HandlePost(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	utils.WriteResponse(w, post.ID.Hex())
 }
 
-func init() {
-	ren = render.New(render.Options{
-		Directory: "tmpls",
-		Layout:    "layout",
-	})
+func HandleLoginPage(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+	ren.HTML(w, http.StatusOK, "login", nil)
+}
+
+func HandleLogin(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+	success, err := utils.Login(w, r)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	if success {
+		http.Redirect(w, r, "/", http.StatusSeeOther)
+		return
+	}
+	ren.HTML(w, http.StatusOK, "login", "login failed")
 }

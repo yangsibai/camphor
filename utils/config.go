@@ -3,6 +3,7 @@ package utils
 import (
 	"encoding/json"
 	"github.com/camphor/models"
+	"github.com/gorilla/sessions"
 	"log"
 	"os"
 )
@@ -20,6 +21,7 @@ func readConfig() (error, models.Configuration) {
 }
 
 var Config models.Configuration
+var store *sessions.CookieStore
 
 func init() {
 	var err error
@@ -27,4 +29,5 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+	store = sessions.NewCookieStore([]byte(Config.Auth.Secret))
 }

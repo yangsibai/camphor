@@ -13,6 +13,8 @@ func main() {
 	router.GET("/", routes.Index)
 	router.GET("/post", routes.AddPostPage)
 	router.POST("/post", routes.HandlePost)
+	router.GET("/login", routes.HandleLoginPage)
+	router.POST("/login", routes.HandleLogin)
 
 	router.ServeFiles("/public/*filepath", http.Dir("public"))
 
