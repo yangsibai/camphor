@@ -26,6 +26,7 @@ func responseError(w http.ResponseWriter, err error) {
 }
 
 func Index(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+
 	posts, err := db.GetAllPosts()
 	if err != nil {
 		responseError(w, err)
@@ -35,6 +36,15 @@ func Index(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	if err != nil {
 		responseError(w, err)
 		return
+	}
+
+	loc, err := time.LoadLocation("Asia/ShangHai")
+	if err != nil {
+		responseError(w, err)
+		return
+	}
+	for i := 0; i < len(posts); i++ {
+		posts[i].CreatedAt = posts[i].CreatedAt.In(loc)
 	}
 	ren.HTML(w, http.StatusOK, "index", struct {
 		Posts   []models.Post
