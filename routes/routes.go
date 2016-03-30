@@ -38,7 +38,7 @@ func Index(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 		return
 	}
 
-	loc, err := time.LoadLocation("Asia/ShangHai")
+	loc, err := time.LoadLocation("Asia/Shanghai")
 	if err != nil {
 		responseError(w, err)
 		return
