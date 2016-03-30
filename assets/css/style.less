@@ -1,10 +1,12 @@
 @color-blue: #25a6d9;
+@color-red: #d92500;
 @color-link: #333;
 @color-label: #aaa;
 
 html, body {
     font-family: "Microsoft Yahei", Arial,"Helvetica Neue",Helvetica,"Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Verdana,sans-serif;
     background: #FFF;
+    text-align: center;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -25,17 +27,26 @@ nav {
     font-size: 20px;
 }
 
-@posts-split-line: 1px solid #DDD;
+header {
+    border-bottom: 1px solid @color-blue;
+}
+
+footer {
+    padding: 10px 0;
+    color: #888;
+    font-size: 12px;
+}
 
 .home {
     .posts {
         margin: 20px 0;
+        width: 700px;
+        margin: auto;
         .post {
-            padding: 20px 0;
-            border-bottom: @posts-split-line;
-            &:first-child {
-                border-top: @posts-split-line;
-            }
+            padding: 30px 10px;
+            color: #000;
+            border-bottom: 1px solid #CCC;
+            text-align: left;
             .label {
                 font-size: 12px;
                 color: @color-label;
@@ -48,6 +59,9 @@ nav {
                 margin: 0;
                 padding: 0;
                 list-style: none;
+                img {
+                    max-width: 100%;
+                }
             }
         }
     }
@@ -96,6 +110,11 @@ nav {
     .add_post {
         text-align: center;
         .form textarea {
+            width: 100%;
+        }
+    }
+    .home {
+        .posts {
             width: 100%;
         }
     }
