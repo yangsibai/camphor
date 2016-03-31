@@ -1,13 +1,15 @@
-@color-blue: #25a6d9;
-@color-red: #d92500;
-@color-link: #333;
-@color-label: #aaa;
-@color-RO: #121212;
-@color-KUROTSURUBAMI: #111619;
+@color-KOHBAI: #E16B8C;
+@color-TSUYUKUSA: #2EA9DF;
+@color-RO: #0C0C0C;
+@color-KUROTSURUBAMI: #0B1013;
+@color-WAKATAKE: #5DAC81;
+@color-SUNEZUMI: #787D7B;
+@color-SHIRONERI: #FCFAF2;
+@color-GOFUN: #FFFFFB;
 
 html, body {
     font-family: "Microsoft Yahei", Arial,"Helvetica Neue",Helvetica,"Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Verdana,sans-serif;
-    background: #FFF;
+    background: @color-GOFUN;
     text-align: center;
 }
 
@@ -21,7 +23,7 @@ pre, code {
 
 nav {
     .add-post {
-        color: @color-link;
+        color: @color-KOHBAI;
     }
 }
 
@@ -31,7 +33,7 @@ nav {
 }
 
 header {
-    border-bottom: 1px solid @color-blue;
+    border-bottom: 1px solid @color-TSUYUKUSA;
 }
 
 footer {
@@ -48,11 +50,11 @@ footer {
         .post {
             padding: 30px 10px;
             color: @color-KUROTSURUBAMI;
-            border-bottom: 1px solid #CCC;
+            border-bottom: 1px solid @color-WAKATAKE;
             text-align: left;
             .label {
                 font-size: 12px;
-                color: @color-label;
+                color: @color-SUNEZUMI;
                 float: right;
             }
             .body {
@@ -100,7 +102,7 @@ footer {
                 width: 100px;
                 height: 40px;
                 outline: none;
-                background-color: @color-blue;
+                background-color: @color-TSUYUKUSA;
                 font-family: 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif;
                 border: none;
                 border-radius: 3px;
