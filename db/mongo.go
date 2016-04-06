@@ -4,6 +4,7 @@ import (
 	"github.com/camphor/models"
 	"github.com/camphor/utils"
 	"gopkg.in/mgo.v2"
+	"gopkg.in/mgo.v2/bson"
 )
 
 func getSession() *mgo.Session {
@@ -41,4 +42,15 @@ func StoreResource(resource *models.Resource) error {
 
 	C := session.DB("camphor").C("resource")
 	return C.Insert(&resource)
+}
+
+func GetSinglePost(id string) (post models.Post, err error) {
+	session := getSession()
+
+	defer session.Close()
+
+	oid := bson.ObjectIdHex(id)
+	C := session.DB("camphor").C("post")
+	err = C.FindId(oid).One(&post)
+	return
 }

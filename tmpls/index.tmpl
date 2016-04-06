@@ -16,7 +16,10 @@
                 <li><img width="{{.Width}}" height="{{.Height}}" src="{{.URL}}" /></li>
             {{ end }}
             </ul>
-            <div class="label"><span class="time">{{.CreatedAt.Format "01-02 15:04" }}</span></div>
+            <div class="label">
+                <a class="link" href="/m/{{.ID.Hex}}">#</a>
+                <span class="time">{{.CreatedAt.Format "01-02 15:04" }}</span>
+            </div>
         </div>
         {{ end }}
     </div>

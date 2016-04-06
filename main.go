@@ -11,10 +11,14 @@ import (
 func main() {
 	router := httprouter.New()
 	router.GET("/", routes.Index)
+
 	router.GET("/post", routes.AddPostPage)
 	router.POST("/post", routes.HandlePost)
+
 	router.GET("/login", routes.HandleLoginPage)
 	router.POST("/login", routes.HandleLogin)
+
+	router.GET("/m/:id", routes.HandleSinglePost)
 
 	router.ServeFiles("/public/*filepath", http.Dir("public"))
 

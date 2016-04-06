@@ -113,3 +113,13 @@ func HandleLogin(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	}
 	ren.HTML(w, http.StatusOK, "login", "login failed")
 }
+
+func HandleSinglePost(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+	id := ps.ByName("id")
+	post, err := db.GetSinglePost(id)
+	if err != nil {
+		utils.WriteErrorResponse(w, err)
+		return
+	}
+	ren.HTML(w, http.StatusOK, "post", post)
+}
