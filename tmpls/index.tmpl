@@ -6,6 +6,12 @@
     {{ end }}
 {{ end }}
 
+{{ define "footer-index" }}
+    <footer>
+        by massimo
+    </footer>
+{{ end }}
+
 <div class="home">
     <div class="posts">
         {{ range .Posts }}
@@ -13,7 +19,7 @@
             <div class="body">{{.Body}}</div>
             <ul class="resources">
             {{ range .Resources }}
-                <li><img width="{{.Width}}" height="{{.Height}}" src="{{.URL}}" /></li>
+            <li><a target="_blank" href="{{.URL}}"><img width="{{.Width}}" height="{{.Height}}" src="{{.URL}}?w=100" /></a></li>
             {{ end }}
             </ul>
             <div class="label">
