@@ -8,7 +8,9 @@ import (
 	"github.com/julienschmidt/httprouter"
 	"github.com/unrolled/render"
 	"gopkg.in/mgo.v2/bson"
+	"html/template"
 	"net/http"
+	"strings"
 	"time"
 )
 
@@ -45,6 +47,8 @@ func Index(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	}
 	for i := 0; i < len(posts); i++ {
 		posts[i].CreatedAt = posts[i].CreatedAt.In(loc)
+		posts[i].Body = template.HTMLEscapeString(posts[i].Body)
+		posts[i].HTML = template.HTML(strings.Replace(posts[i].Body, "\n", "<br>", -1))
 	}
 	ren.HTML(w, http.StatusOK, "index", struct {
 		Posts   []models.Post
@@ -121,5 +125,7 @@ func HandleSinglePost(w http.ResponseWriter, r *http.Request, ps httprouter.Para
 		utils.WriteErrorResponse(w, err)
 		return
 	}
+	post.Body = template.HTMLEscapeString(post.Body)
+	post.HTML = template.HTML(strings.Replace(post.Body, "\n", "<br>", -1))
 	ren.HTML(w, http.StatusOK, "post", post)
 }

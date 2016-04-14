@@ -16,7 +16,7 @@
     <div class="posts">
         {{ range .Posts }}
         <div class="post">
-            <div class="body">{{.Body}}</div>
+            <div class="body">{{.HTML}}</div>
             <ul class="resources">
             {{ range .Resources }}
             <li><a target="_blank" href="{{.URL}}"><img src="{{.URL}}?w=400" /></a></li>
