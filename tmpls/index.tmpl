@@ -25,6 +25,12 @@
                         <source src="{{.URL}}" type="audio/mp3" />
                     </audio>
                 </li>
+            {{ else if eq .Type "audio/x-m4a"}}
+                <li>
+                    <audio controls>
+                        <source src="{{.URL}}" type="audio/x-m4a" />
+                    </audio>
+                </li>
             {{ else }}
                 <li><a target="_blank" href="{{.URL}}"><img src="{{.URL}}?w=400" /></a></li>
             {{ end }}
