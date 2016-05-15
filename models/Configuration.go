@@ -7,9 +7,10 @@ type Auth struct {
 }
 
 type Configuration struct {
-	Addr     string `json: "addr"`
-	MongoURL string `json: "mongo"`
-	SaveDir  string `json: "saveDir"`
-	BaseURL  string `json: "baseURL"`
-	Auth     Auth   `json: "auth"`
+	Addr      string `json: "addr"`
+	MongoURL  string `json: "mongo"`
+	SaveDir   string `json: "saveDir"`
+	BaseURL   string `json: "baseURL"`
+	Auth      Auth   `json: "auth"`
+	UploadURL string `json: "uploadURL"`
 }

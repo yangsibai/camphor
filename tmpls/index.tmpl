@@ -19,7 +19,15 @@
             <div class="body">{{.HTML}}</div>
             <ul class="resources">
             {{ range .Resources }}
-            <li><a target="_blank" href="{{.URL}}"><img src="{{.URL}}?w=400" /></a></li>
+            {{ if eq .Type "audio/mp3" }}
+                <li>
+                    <audio controls>
+                        <source src="{{.URL}}" type="audio/mp3" />
+                    </audio>
+                </li>
+            {{ else }}
+                <li><a target="_blank" href="{{.URL}}"><img src="{{.URL}}?w=400" /></a></li>
+            {{ end }}
             {{ end }}
             </ul>
             <div class="label">

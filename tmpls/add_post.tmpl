@@ -43,10 +43,10 @@
                 body: content,
             };
             if (res) {
+                res.type = file.type;
                 postObj.resources = [res];
             }
-                console.dir(postObj);
-                ajax.post('/post', {
+            ajax.post('/post', {
                 data: JSON.stringify(postObj)
             }, function (res){
                 var o = JSON.parse(res);
@@ -56,16 +56,25 @@
                 }
                 submitBtn.disabled = false;
                 alert(o.error);
+            }).fail(function(e) {
+                console.dir(e);
+                alert(e);
             });
         });
     };
     submitBtn.onclick = onSubmit;
 
+    var resource = document.getElementById('resource');
+    var file = null;
+    resource.addEventListener('change', function (e) {
+        file = e.target.files[0];
+    });
+
     function uploadResource(cb) {
         if (!file) {
             cb(null, null);
         } else {
-            ajax.upload('http://panda.sibo.io/upload/img', file, function (err, res) {
+            ajax.upload('{{ . }}', file, function (err, res) {
                 if(err) {
                     return cb(err);
                 }
@@ -77,11 +86,5 @@
             });
         }
     };
-
-    var resource = document.getElementById('resource');
-    var file = null;
-    resource.addEventListener('change', function (e) {
-        file = e.target.files[0];
-    });
 </script>
 {{ end }}

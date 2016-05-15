@@ -3,6 +3,7 @@
     "mongo": "mongodb://localhost:27017",
     "saveDir": "/Users/massimo/www/static/",
     "baseURL": "http://192.168.1.88:9999/",
+    "uploadURL": "http://panda.sibo.io/upload/file",
     "auth": {
         "secret": "secret",
         "email": "yangsibai@gmail.com",

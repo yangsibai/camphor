@@ -66,7 +66,7 @@ func AddPostPage(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 		return
 	}
 	if authed == true {
-		ren.HTML(w, http.StatusOK, "add_post", nil)
+		ren.HTML(w, http.StatusOK, "add_post", utils.Config.UploadURL)
 		return
 	}
 	http.Redirect(w, r, "/login", http.StatusSeeOther)
@@ -101,10 +101,16 @@ func HandlePost(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	utils.WriteResponse(w, post.ID.Hex())
 }
 
+/**
+ * log in page
+ */
 func HandleLoginPage(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	ren.HTML(w, http.StatusOK, "login", nil)
 }
 
+/**
+ * log in
+ */
 func HandleLogin(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	success, err := utils.Login(w, r)
 	if err != nil {
@@ -118,6 +124,9 @@ func HandleLogin(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	ren.HTML(w, http.StatusOK, "login", "login failed")
 }
 
+/**
+ * display single post
+ */
 func HandleSinglePost(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	id := ps.ByName("id")
 	post, err := db.GetSinglePost(id)
