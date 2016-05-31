@@ -33,10 +33,11 @@
             alert('must have content and cannot be blank');
             return;
         }
-        submitBtn.disabled = true;
+        submitting();
         uploadResource(function (err, res) {
             if (err) {
                 alert(err);
+                finishSubmit();
                 return;
             }
             var postObj = {
@@ -54,14 +55,25 @@
                     window.location.href = "/";
                     return;
                 }
-                submitBtn.disabled = false;
                 alert(o.error);
+                finishSubmit();
             }).fail(function(e) {
                 console.dir(e);
                 alert(e);
             });
         });
     };
+
+    function submitting() {
+        submitBtn.disabled = true;
+        submitBtn.innerText = 'Submitting...';
+    }
+
+    function finishSubmit() {
+        submitBtn.disabled = false;
+        submitBtn.innerText = 'Submit';
+    }
+
     submitBtn.onclick = onSubmit;
 
     var resource = document.getElementById('resource');
