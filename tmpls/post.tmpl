@@ -2,9 +2,23 @@
     <div class="post">
         <div class="body">{{.HTML}}</div>
         <ul class="resources">
-        {{ range .Resources }}
-            <li><img width="{{.Width}}" height="{{.Height}}" src="{{.URL}}" /></li>
-        {{ end }}
+            {{ range .Resources }}
+            {{ if eq .Type "audio/mp3" }}
+                <li>
+                    <audio preload="metadata">
+                        <source src="{{.URL}}" type="audio/mp3" />
+                    </audio>
+                </li>
+            {{ else if eq .Type "audio/x-m4a"}}
+                <li>
+                    <audio preload="metadata">
+                        <source src="{{.URL}}" type="audio/mpeg" />
+                    </audio>
+                </li>
+            {{ else }}
+                <li><a target="_blank" href="{{.URL}}"><img src="{{.URL}}?w=400" /></a></li>
+            {{ end }}
+            {{ end }}
         </ul>
         <div class="label">
             <span class="time">{{.CreatedAt.Format "01-02 15:04" }}</span>
