@@ -100,10 +100,8 @@ gulp.task('assets:stylesheets', function() {
  * Build javascripts from source
  */
 gulp.task('assets:javascripts', function() {
-    return gulp.src('assets/js/*.js')
-        .pipe(gulpif(args.production, uglify()))
-        .pipe(gulp.dest('public/js'))
-        .pipe(livereload());
+    return gulp.src('assets/js/**')
+        .pipe(gulp.dest('public/js/'));
 });
 
 /*
