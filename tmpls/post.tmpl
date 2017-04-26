@@ -21,7 +21,7 @@
             {{ end }}
         </ul>
         <div class="label">
-            <span class="time">{{.CreatedAt.Format "01-02 15:04" }}</span>
+            <span class="time">{{.CreatedAt.Format "2006-01-02 15:04" }}</span>
             <a class="link" href="/m/{{.ID.Hex}}">#{{ .ID.Hex }}</a>
         </div>
     </div>
