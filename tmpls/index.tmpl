@@ -21,13 +21,13 @@
             {{ range .Resources }}
             {{ if eq .Type "audio/mp3" }}
                 <li>
-                    <audio preload="metadata">
+                    <audio preload="metadata" controls>
                         <source src="{{.URL}}" type="audio/mp3" />
                     </audio>
                 </li>
             {{ else if eq .Type "audio/x-m4a"}}
                 <li>
-                    <audio preload="metadata">
+                    <audio preload="metadata" controls>
                         <source src="{{.URL}}" type="audio/mpeg" />
                     </audio>
                 </li>
