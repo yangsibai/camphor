@@ -14,30 +14,27 @@
 
 <div class="home">
     <div class="posts">
-        {{ range .Posts }}
+        {{ $total := len $.Posts }}
+        {{ range $index, $post := .Posts }}
+        {{ $num := minus $total $index }}
         <div class="post">
             <div class="body">{{.HTML}}</div>
             <ul class="resources">
             {{ range .Resources }}
-            {{ if eq .Type "audio/mp3" }}
-                <li>
-                    <audio preload="metadata" controls>
-                        <source src="{{.URL}}" type="audio/mp3" />
-                    </audio>
+              <li>
+                {{ if eq .Type "audio/mp3" }}
+                    <a href="/m/{{$post.ID.Hex}}">[AUDIO]</a>
+                {{ else if eq .Type "audio/x-m4a"}}
+                    <a href="/m/{{$post.ID.Hex}}">[AUDIO]</a>
+                {{ else }}
+                  <a href="/m/{{$post.ID.Hex}}">[IMAGE]</a>
+                {{ end }}
                 </li>
-            {{ else if eq .Type "audio/x-m4a"}}
-                <li>
-                    <audio preload="metadata" controls>
-                        <source src="{{.URL}}" type="audio/mpeg" />
-                    </audio>
-                </li>
-            {{ else }}
-              <li><a target="_blank" href="/m/{{ .ID.Hex }}">[IMG]</li>
-            {{ end }}
+              </li>
             {{ end }}
             </ul>
             <div class="label">
-                <a class="link" href="/m/{{.ID.Hex}}">#</a>
+              <a class="link" href="/m/{{.ID.Hex}}">#{{ roman $num }}</a>
                 <span class="time">{{.CreatedAt.Format "01/02/06 15:04" }}</span>
             </div>
         </div>
