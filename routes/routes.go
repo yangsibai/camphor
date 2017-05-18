@@ -29,6 +29,9 @@ func init() {
 			"roman": func(num int) string {
 				return getRoman(num)
 			},
+			"hex": func(num int) string {
+				return strings.ToUpper(strconv.FormatInt(int64(num), 36))
+			},
 		}},
 	})
 }
