@@ -1,14 +1,31 @@
 {{ define "nav-index"}}
     {{ if .IsLogin }}
         <nav>
-            <a class="add-post" href="/post">post</a>
+          <ul>
+            <li>
+              <a class="add-post" href="/post">post</a>
+            </li>
+          </ul>
+        </nav>
+    {{ else }}
+        <nav>
+          <ul>
+            <li>
+              <a class="add-post" href="http://blog.sibo.me">post</a>
+            </li>
+            <li>
+              <a class="add-post" href="/post">post</a>
+            </li>
+          </ul>
         </nav>
     {{ end }}
 {{ end }}
 
 {{ define "footer-index" }}
     <footer>
-      by massimo, my blog <a href="https://blog.sibo.me">https://blog.sibo.me</a>
+      <span>
+      by massimo
+      </span>
     </footer>
 {{ end }}
 
