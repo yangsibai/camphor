@@ -6,7 +6,7 @@
     "uploadURL": "http://panda.sibo.io/upload/file",
     "auth": {
         "secret": "secret",
-        "email": "yangsibai@gmail.com",
-        "password": "massimo"
+        "email": "user",
+        "password": "pass"
     }
 }
