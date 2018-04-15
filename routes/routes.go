@@ -32,7 +32,7 @@ func init() {
 				return strings.ToUpper(strconv.FormatInt(int64(num), 36))
 			},
 			"plain": func(num int) string {
-				return strconv.Itoa(num)
+				return strconv.Itoa(num - 1)
 			},
 		}},
 	})

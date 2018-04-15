@@ -61,6 +61,6 @@ func GetPostByIndex(idx int) (post models.Post, err error) {
 	defer session.Close()
 
 	C := session.DB("camphor").C("post")
-	err = C.Find(bson.M{}).Skip(idx - 1).One(&post)
+	err = C.Find(bson.M{}).Skip(idx).One(&post)
 	return
 }
