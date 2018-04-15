@@ -32,6 +32,9 @@ func init() {
 			"hex": func(num int) string {
 				return strings.ToUpper(strconv.FormatInt(int64(num), 36))
 			},
+			"plain": func(num int) string {
+				return strconv.Itoa(num)
+			},
 		}},
 	})
 }
