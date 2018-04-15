@@ -1,8 +1,18 @@
-## Camphor
+# Camphor
 
-A place where there is no follows, no comments, no likes, just for myself.
+A tiny blog where only write for myself, there is no follows, no comments, no likes, if you care about me, find me here.
 
-<http://sibo.me>
+DEMO: <http://sibo.me>
+
+## Features
+
++ Text
++ Image
++ Audio
++ No pagination
++ No follow
++ No comments
++ No likes
 
 ### LICENSE
 
