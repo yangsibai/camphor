@@ -64,3 +64,12 @@ func GetPostByIndex(idx int) (post models.Post, err error) {
 	err = C.Find(bson.M{}).Skip(idx).One(&post)
 	return
 }
+
+func GetPostsCount() (count int, err error) {
+	session := getSession()
+
+	defer session.Close()
+
+	C := session.DB("camphor").C("post")
+	return C.Find(bson.M{}).Count()
+}

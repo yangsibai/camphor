@@ -183,6 +183,14 @@ func HandlePostByIndex(w http.ResponseWriter, r *http.Request, ps httprouter.Par
 		utils.WriteErrorResponse(w, err)
 		return
 	}
+	if idx < 0 {
+		total, err := db.GetPostsCount()
+		if err != nil {
+			utils.WriteErrorResponse(w, err)
+			return
+		}
+		idx = total + idx
+	}
 	post, err := db.GetPostByIndex(idx)
 	if err != nil {
 		utils.WriteErrorResponse(w, err)
