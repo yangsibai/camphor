@@ -21,6 +21,7 @@ func main() {
 	router.GET("/logout", routes.HandleLogOut)
 
 	router.GET("/m/:id", routes.HandleSinglePost)
+	router.GET("/~/:idx", routes.HandlePostByIndex)
 
 	router.ServeFiles("/public/*filepath", http.Dir("public"))
 

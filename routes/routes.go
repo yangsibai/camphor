@@ -177,6 +177,22 @@ func HandleSinglePost(w http.ResponseWriter, r *http.Request, ps httprouter.Para
 	ren.HTML(w, http.StatusOK, "post", post)
 }
 
+func HandlePostByIndex(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+	idx, err := strconv.Atoi(ps.ByName("idx"))
+	if err != nil {
+		utils.WriteErrorResponse(w, err)
+		return
+	}
+	post, err := db.GetPostByIndex(idx)
+	if err != nil {
+		utils.WriteErrorResponse(w, err)
+		return
+	}
+	post.Body = template.HTMLEscapeString(post.Body)
+	post.HTML = template.HTML(strings.Replace(post.Body, "\n", "<br>", -1))
+	ren.HTML(w, http.StatusOK, "post", post)
+}
+
 func HandleLogOut(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	utils.LogOut(w, r)
 	http.Redirect(w, r, "/", 302)
