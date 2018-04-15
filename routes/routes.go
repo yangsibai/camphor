@@ -155,6 +155,7 @@ func HandleLogin(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 
 /**
  * display single post
+ * path: /m/<post_id>
  */
 func HandleSinglePost(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	id := ps.ByName("id")
@@ -177,6 +178,10 @@ func HandleSinglePost(w http.ResponseWriter, r *http.Request, ps httprouter.Para
 	ren.HTML(w, http.StatusOK, "post", post)
 }
 
+/*
+ * display single post
+ * path: /~/<post_index>
+ */
 func HandlePostByIndex(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	idx, err := strconv.Atoi(ps.ByName("idx"))
 	if err != nil {
