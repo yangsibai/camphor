@@ -54,3 +54,13 @@ func GetSinglePost(id string) (post models.Post, err error) {
 	err = C.FindId(oid).One(&post)
 	return
 }
+
+func GetPostByIndex(idx int) (post models.Post, err error) {
+	session := getSession()
+
+	defer session.Close()
+
+	C := session.DB("camphor").C("post")
+	err = C.Find(bson.M{}).Skip(idx - 1).One(&post)
+	return
+}

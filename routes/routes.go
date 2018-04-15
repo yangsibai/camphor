@@ -10,7 +10,6 @@ import (
 	"gopkg.in/mgo.v2/bson"
 	"html/template"
 	"net/http"
-	"sort"
 	"strconv"
 	"strings"
 	"time"
@@ -27,7 +26,7 @@ func init() {
 				return a - b
 			},
 			"roman": func(num int) string {
-				return getRoman(num)
+				return utils.GetRoman(num)
 			},
 			"hex": func(num int) string {
 				return strings.ToUpper(strconv.FormatInt(int64(num), 36))
@@ -39,54 +38,14 @@ func init() {
 	})
 }
 
-func getRoman(number int) string {
-	// create a denary_number:roman_symbol map
-	romanMap := map[int]string{
-		1: "I", 4: "IV", 5: "V", 9: "IX", 10: "X", 40: "XL", 50: "L",
-		90: "XC", 100: "C", 400: "CD", 500: "D", 900: "CM", 1000: "M",
-	}
-	// create a slice of slices
-	rows := len(romanMap)
-	matrix := make([][]string, rows)
-	// create a slice of the map keys
-	var key_slice []int
-	// range of a map returns key, value pair
-	// value is not needed so use blank identifier _
-	for k, _ := range romanMap {
-		key_slice = append(key_slice, k)
-	}
-	// sort the slice in place, highest number first (decending)
-	sort.Sort(sort.Reverse(sort.IntSlice(key_slice)))
-	// create a slice of romanMap content slices
-	row := 0
-	// range of a slice returns index, value pair
-	// index not needed so use blank identifier _
-	for _, key := range key_slice {
-		// convert int key to string key
-		skey := strconv.Itoa(key)
-		matrix[row] = []string{skey, romanMap[key]}
-		row++
-	}
-	result := ""
-	for _, item := range matrix {
-		// convert string to int
-		den, err := strconv.Atoi(item[0])
-		if err != nil {
-			panic(err)
-		}
-		sym := item[1]
-		for number >= den {
-			result += sym
-			number -= den
-		}
-	}
-	return result
-}
-
 func responseError(w http.ResponseWriter, err error) {
 	http.Error(w, err.Error(), http.StatusInternalServerError)
 }
 
+/*
+ * homepage
+ * path: /
+ */
 func Index(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 
 	posts, err := db.GetAllPosts()
@@ -119,6 +78,11 @@ func Index(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	})
 }
 
+/*
+ * add a new post
+ * path: /post
+ * method: get
+ */
 func AddPostPage(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	authed, err := utils.IsLogin(r)
 	if err != nil {
@@ -132,6 +96,11 @@ func AddPostPage(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	http.Redirect(w, r, "/login", http.StatusSeeOther)
 }
 
+/**
+ * add a new post
+ * path: /post
+ * method: post
+ */
 func HandlePost(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	data := []byte(r.PostFormValue("data"))
 
@@ -189,7 +158,16 @@ func HandleLogin(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
  */
 func HandleSinglePost(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	id := ps.ByName("id")
-	post, err := db.GetSinglePost(id)
+	var post models.Post
+	var err error
+	if strings.HasPrefix(id, "~") {
+		idx, err := strconv.Atoi(id[1:])
+		if err == nil {
+			post, err = db.GetPostByIndex(idx)
+		}
+	} else {
+		post, err = db.GetSinglePost(id)
+	}
 	if err != nil {
 		utils.WriteErrorResponse(w, err)
 		return
