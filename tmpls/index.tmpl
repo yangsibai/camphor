@@ -1,13 +1,17 @@
 {{ define "nav-index"}}
-    {{ if .IsLogin }}
-        <nav>
-          <ul>
-            <li>
-              <a class="add-post" href="/post">New</a>
-            </li>
-          </ul>
-        </nav>
-    {{ end }}
+    <nav>
+      <ul>
+      {{ if .IsLogin }}
+          <li>
+            <a href="/post">New</a>
+          </li>
+      {{ else }}
+          <li>
+            <a href="/login">Log in</a>
+          </li>
+      {{ end }}
+      </ul>
+    </nav>
 {{ end }}
 
 {{ define "footer-index" }}
