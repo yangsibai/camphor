@@ -195,3 +195,8 @@ func HandleSinglePost(w http.ResponseWriter, r *http.Request, ps httprouter.Para
 	post.HTML = template.HTML(strings.Replace(post.Body, "\n", "<br>", -1))
 	ren.HTML(w, http.StatusOK, "post", post)
 }
+
+func HandleLogOut(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+	utils.LogOut(w, r)
+	http.Redirect(w, r, "/", 302)
+}

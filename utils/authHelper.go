@@ -31,3 +31,12 @@ func Login(w http.ResponseWriter, r *http.Request) (success bool, err error) {
 	}
 	return false, nil
 }
+
+func LogOut(w http.ResponseWriter, r *http.Request) {
+	session, err := store.Get(r, "user-auth")
+	if err != nil {
+		return
+	}
+	session.Values["authed"] = false
+	session.Save(r, w)
+}

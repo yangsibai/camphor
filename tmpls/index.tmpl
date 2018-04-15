@@ -2,13 +2,16 @@
     <nav>
       <ul>
       {{ if .IsLogin }}
-          <li>
-            <a href="/post">New</a>
-          </li>
+        <li>
+          <a href="/post">New</a>
+        </li>
+        <li>
+          <a href="/logout">Log Out</a>
+        </li>
       {{ else }}
-          <li>
-            <a href="/login">Log in</a>
-          </li>
+        <li>
+          <a href="/login">Log in</a>
+        </li>
       {{ end }}
       </ul>
     </nav>
