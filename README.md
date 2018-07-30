@@ -2,7 +2,7 @@
 
 A tiny blog, no follows, no comments, no likes, forget about others' judgements, write for yourself.
 
-DEMO: <https://www.sibo.me>
+DEMO: <https://sibo.me>
 
 ## Features
 
