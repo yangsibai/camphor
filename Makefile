@@ -5,7 +5,7 @@ test:
 	curl -X POST -d "{\"body\":\"test body\"}" http://localhost:9021/post
 
 compile_css:
-	@lessc assets/css/style.less public/style.css
+	@lessc assets/css/style.less public/css/style.css
 
 copy_bower_packages:
 	@-mkdir public/js
