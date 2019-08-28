@@ -16,6 +16,7 @@
             </div>
             -->
         </div>
+        <p id="error-message" class="error-message"></p>
         <div class="btns">
             <button class="submit" id="submit">Submit</button>
         </div>
@@ -26,17 +27,27 @@
 <script>
     var submitBtn = document.getElementById('submit');
     var contentInput = document.getElementById('content');
-    var content;
+    var errorMessageElement = document.getElementById('error-message');
+
+    function showError(message) {
+        errorMessageElement.innerText = message;
+    }
+
+    function clearError() {
+        errorMessageElement.innerText = '';
+    }
+
     var onSubmit = function () {
-        content = contentInput.value.trim();
+        clearError();
+        var content = contentInput.value.trim();
         if (!content) {
-            alert('must have content and cannot be blank');
+            showError('Must have content and cannot be blank.');
             return;
         }
         submitting();
         uploadResource(function (err, res) {
             if (err) {
-                alert(err);
+                showError(err);
                 finishSubmit();
                 return;
             }
@@ -55,11 +66,8 @@
                     window.location.href = "/";
                     return;
                 }
-                alert(o.error);
+                showError(o.error);
                 finishSubmit();
-            }).fail(function(e) {
-                console.dir(e);
-                alert(e);
             });
         });
     };

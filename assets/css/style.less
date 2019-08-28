@@ -110,7 +110,8 @@ footer {
 
 .add_post {
     .form {
-        margin: 10px 0;
+        margin: 20px auto;
+        width: 400px;
         textarea {
             background-color: #f9f9f9;
             border-radius: 4px;
@@ -122,14 +123,21 @@ footer {
             font-size: 16px;
             height: 200px;
             width: 400px;
+            box-sizing: border-box;
         }
         .resources {
+            text-align: left;
             .resource {
                 display: none;
                 &:first-child {
                     display: block;
                 }
             }
+        }
+        .error-message {
+          color: red;
+          font-size: 12px;
+          text-align: left;
         }
         .btns {
             margin: 10px 0;
